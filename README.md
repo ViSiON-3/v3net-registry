@@ -62,7 +62,17 @@ You don't need to list a network here to run it: sysops can join by entering the
    python3 scripts/validate.py
    ```
 
-4. Open a pull request. CI runs the same validator on every push and pull request.
+4. Open a pull request. CI runs the same validator on every push and pull request. You can do all of this in GitHub's web editor: open `registry.json`, click the pencil icon, and GitHub forks the repository for you.
+
+If you'd rather not open a pull request, [open a listing request](https://github.com/ViSiON-3/v3net-registry/issues/new?template=network-listing.yml) with your network's details, and a maintainer will make the change.
+
+### What reviewers check
+
+CI checks that an entry is well formed, but it can't tell who runs a hub. Before merging, a maintainer:
+
+- compares `hub_node_id` and both keys with what the hub reports at `/info` and `/nal`
+- confirms that the submitter runs the hub, through a contact or channel we already trust. Expect to be asked for this if we don't know you yet.
+- for a key change, checks the reason and that the network's sysops know to update their pins
 
 If a hub is rebuilt with a new key, update `hub_node_id` and `hub_pubkey_b64` together. Change `coordinator_pubkey_b64` only if the coordinator's key changes too, as it does when the hub is also the coordinator. Updating the registry does not move existing leaves to the new key: a leaf that pinned the old key rejects the new one and reports it, and each sysop has to replace or clear the pin in their `v3net.json`. Tell your sysops before you rotate a key.
 
