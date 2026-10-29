@@ -46,7 +46,7 @@ Leaves that join through the registry pin both public keys, so they don't have t
 
 Any ViSiON/3 BBS can host a network. Turn on the hub in the config editor, then create the network with the Hub Setup Wizard under **V3Net Networking → 3. Networks**. See [Hosting a Hub](https://github.com/ViSiON-3/vision-3-bbs/blob/main/docs/sysop/v3net/configuration.md#hosting-a-hub). To serve the hub over HTTPS, see [V3Net Hub TLS Setup](https://github.com/ViSiON-3/vision-3-bbs/blob/main/docs/sysop/v3net/hub-tls.md).
 
-You don't need to list a network here to run it: sysops can join by entering the hub URL and network name directly. List it here so that it shows up in every BBS's registry browser.
+You don't need to list a network here to run it: sysops can join by entering the hub URL and network name directly. List it here so that it shows up in every BBS's registry browser, and so that leaves joining from the registry get your keys from here instead of trusting the first keys the hub serves.
 
 ## Adding or updating a network
 
