@@ -13,6 +13,7 @@ import hashlib
 import json
 import re
 import sys
+import urllib.parse
 
 REQUIRED = {
     "name": str,
@@ -32,6 +33,15 @@ def decode_key(value):
     except (binascii.Error, ValueError):
         return None
     return raw if len(raw) == 32 else None
+
+
+def valid_hub_url(value):
+    try:
+        url = urllib.parse.urlsplit(value)
+        url.port  # raises ValueError for a non-numeric or out-of-range port
+    except ValueError:
+        return False
+    return url.scheme in ("http", "https") and bool(url.hostname)
 
 
 def validate(reg):
@@ -69,8 +79,8 @@ def validate(reg):
         if net["name"] in seen:
             errors.append(f"{where}: duplicate network name")
         seen.add(net["name"])
-        if not re.match(r"^https?://", net["hub_url"]):
-            errors.append(f"{where}: hub_url must be http(s)")
+        if not valid_hub_url(net["hub_url"]):
+            errors.append(f"{where}: hub_url must be an http(s) URL with a host")
         if not NODE_ID_RE.match(net["hub_node_id"]):
             errors.append(f"{where}: hub_node_id must be 16 lowercase hex chars")
 
