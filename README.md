@@ -64,7 +64,7 @@ You don't need to list a network here to run it: sysops can join by entering the
 
 4. Open a pull request. CI runs the same validator on every push and pull request.
 
-If a hub is rebuilt with a new key, update `hub_node_id` and both key fields together. Updating the registry does not move existing leaves to the new key: a leaf that pinned the old key rejects the new one and reports it, and each sysop has to replace or clear the pin in their `v3net.json`. Tell your sysops before you rotate a key.
+If a hub is rebuilt with a new key, update `hub_node_id` and `hub_pubkey_b64` together. Change `coordinator_pubkey_b64` only if the coordinator's key changes too, as it does when the hub is also the coordinator. Updating the registry does not move existing leaves to the new key: a leaf that pinned the old key rejects the new one and reports it, and each sysop has to replace or clear the pin in their `v3net.json`. Tell your sysops before you rotate a key.
 
 ## Running your own registry
 

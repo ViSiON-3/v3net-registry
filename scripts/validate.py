@@ -74,14 +74,14 @@ def validate(reg):
         if bad:
             continue
 
-        if not NAME_RE.match(net["name"]):
+        if not NAME_RE.fullmatch(net["name"]):
             errors.append(f"{where}: name must be lowercase [a-z0-9_-]")
         if net["name"] in seen:
             errors.append(f"{where}: duplicate network name")
         seen.add(net["name"])
         if not valid_hub_url(net["hub_url"]):
             errors.append(f"{where}: hub_url must be an http(s) URL with a host")
-        if not NODE_ID_RE.match(net["hub_node_id"]):
+        if not NODE_ID_RE.fullmatch(net["hub_node_id"]):
             errors.append(f"{where}: hub_node_id must be 16 lowercase hex chars")
 
         hub_key = decode_key(net["hub_pubkey_b64"])
