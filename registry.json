@@ -1,12 +1,14 @@
 {
   "v3net_registry": "1.0",
-  "updated": "2026-08-02",
+  "updated": "2026-10-29",
   "networks": [
     {
       "name": "felonynet",
       "description": "Official ViSiON/3 BBS message network",
       "hub_url": "http://felonynet.org:8765",
-      "hub_node_id": "8fdeba233bfdb2ee"
+      "hub_node_id": "8fdeba233bfdb2ee",
+      "hub_pubkey_b64": "PG5yr5oAdmcKu3uO423drk618+P6a1Wz8zs9qaDBNao=",
+      "coordinator_pubkey_b64": "PG5yr5oAdmcKu3uO423drk618+P6a1Wz8zs9qaDBNao="
     }
   ]
 }
