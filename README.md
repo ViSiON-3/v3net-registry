@@ -42,6 +42,12 @@ A BBS fetches the registry when the browser opens and caches it for an hour, so 
 
 Leaves that join through the registry pin both public keys, so they don't have to trust the keys a hub serves on first contact ([vision-3-bbs#656](https://github.com/ViSiON-3/vision-3-bbs/issues/656)). If the hub also acts as the coordinator, the two keys are the same.
 
+## Starting a new network
+
+Any ViSiON/3 BBS can host a network. Turn on the hub in the config editor, then create the network with the Hub Setup Wizard under **V3Net Networking → 3. Networks**. See [Hosting a Hub](https://github.com/ViSiON-3/vision-3-bbs/blob/main/docs/sysop/v3net/configuration.md#hosting-a-hub). To serve the hub over HTTPS, see [V3Net Hub TLS Setup](https://github.com/ViSiON-3/vision-3-bbs/blob/main/docs/sysop/v3net/hub-tls.md).
+
+You don't need to list a network here to run it: sysops can join by entering the hub URL and network name directly. List it here so that it shows up in every BBS's registry browser.
+
 ## Adding or updating a network
 
 1. Get your hub's keys from the hub machine itself, or from its endpoints:
@@ -59,6 +65,15 @@ Leaves that join through the registry pin both public keys, so they don't have t
 4. Open a pull request. CI runs the same validator on every push and pull request.
 
 If a hub is rebuilt with a new key, update `hub_node_id` and both key fields together. Updating the registry does not move existing leaves to the new key: a leaf that pinned the old key rejects the new one and reports it, and each sysop has to replace or clear the pin in their `v3net.json`. Tell your sysops before you rotate a key.
+
+## Running your own registry
+
+A BBS can read a different registry, for example a private list for a group of boards. Serve a file in the same format from any HTTP(S) URL, then set **Registry URL** on the V3Net settings screen of the config editor (`registryUrl` in `configs/v3net.json`).
+
+- A BBS reads only one registry, so a private registry replaces this one. Copy the entries you still want listed, such as felonynet, into your file.
+- The file must be 1 MB or smaller.
+- Serve it over HTTPS. Leaves pin the keys a registry publishes, so whoever can change the file in transit can choose which hub a leaf trusts.
+- To check your file, run `python3 scripts/validate.py path/to/registry.json` from a clone of this repository.
 
 ## Validation
 
