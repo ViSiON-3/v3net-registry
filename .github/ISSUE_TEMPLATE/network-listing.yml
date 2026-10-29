@@ -1,0 +1,75 @@
+name: Add or update a network
+description: Ask for a V3Net network to be listed in the registry, or for its entry to be changed.
+title: "Listing: "
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Use this form if you'd rather not open a pull request yourself. A maintainer will turn it into one.
+
+        Get the keys from the hub machine itself if you can. Leaves that join from the registry trust the keys listed here.
+  - type: dropdown
+    id: kind
+    attributes:
+      label: Request
+      options:
+        - Add a new network
+        - Update an existing network
+    validations:
+      required: true
+  - type: input
+    id: name
+    attributes:
+      label: Network name
+      description: Must match the network name on your hub. Lowercase letters, digits, `-` and `_`.
+      placeholder: mynet
+    validations:
+      required: true
+  - type: input
+    id: description
+    attributes:
+      label: Description
+      description: One line, shown in the registry browser.
+      placeholder: My BBS Network
+    validations:
+      required: true
+  - type: input
+    id: hub_url
+    attributes:
+      label: Hub URL
+      placeholder: https://bbs.example.com
+    validations:
+      required: true
+  - type: input
+    id: hub_node_id
+    attributes:
+      label: Hub node ID
+      description: 16 hex characters. Shown as `hub_node_id` at `<hub_url>/v3net/v1/<network>/info`.
+    validations:
+      required: true
+  - type: input
+    id: hub_pubkey_b64
+    attributes:
+      label: Hub public key
+      description: Base64. Shown as `hub_pubkey_b64` at `<hub_url>/v3net/v1/<network>/info`.
+    validations:
+      required: true
+  - type: input
+    id: coordinator_pubkey_b64
+    attributes:
+      label: Coordinator public key
+      description: Base64. Shown as `coordinator_pubkey_b64` at `<hub_url>/v3net/v1/<network>/nal`. Usually the same as the hub key.
+    validations:
+      required: true
+  - type: textarea
+    id: ownership
+    attributes:
+      label: How can we confirm you run this hub?
+      description: For example, a sysop contact we already know, a post from your BBS, or a message on the network itself.
+    validations:
+      required: true
+  - type: textarea
+    id: notes
+    attributes:
+      label: Anything else
+      description: For an update, say what changed and why (for example, the hub was rebuilt with a new key).
